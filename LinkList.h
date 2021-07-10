@@ -24,8 +24,40 @@ class Chain{
         Chain<T>& Insert(int k,const T& x);
         void Output(std::ostream& out)const;
         void Erase();
+        void Zero(){first = 0;}
+        Chain<T>& Append(const T& x);
     private:
         ChainNode<T> *first; //指向第一个节点的指针
+        ChainNode<T> *last;
+};
+
+template<class T>
+class Chainiterator{
+    public:
+        T* Initialize(const Chain<T>& c){
+            location = c.first;
+            if(location){
+                return &location->data
+            }
+            return 0;
+        }
+
+        T* Next(){
+            if(!location){
+                return 0;
+            }
+
+            location = location->link;
+
+            if(location){
+                return &location->data
+            }
+
+            return 0;
+        }
+
+    private:
+        ChainNode<T> *location;
 };
 
 template<class T>
@@ -129,6 +161,11 @@ Chain<T>& Chain<T>::Delete(int k,T& x){
         }
 
         p = q->link;//存在第k个元素，p指向第k个元素
+
+        if(p == last){
+            last = q;
+        }
+
         q->link = p->link;//从链表删除改元素，将前一个元素节点指向p的下一个节点
 
     }
@@ -173,10 +210,49 @@ Chain<T>& Chain<T>::Insert(int k,const T& x){
         fisrt = y;
     }
 
+    if(!newNode->link){
+        last = newNode;
+    }
+
     return *this;
 }
 
 template<class T>
 void Chain<T>::Erase(){
     //删除所有链表节点
+    ChainNode<T> *next;
+    while(first){
+        next = first->link;
+        delete fisrt;
+        first = next;
+    }
 }
+
+template<class T>
+Chain<T>& Chain<T>::Append(const T& x){
+    //在链表尾部追加
+    ChainNode<T> *newNode;
+    newNode = new ChainNode<T>;
+    newNode->data = x;
+
+    if(first){//链表不为空
+        last->link = newNode;
+        last = newNode;
+    }else{
+        //链表为空
+        first = last = newNode;
+    }
+
+    return *this;
+}
+
+// int main(){
+//     int* x;
+//     Chainiterator<int> c;
+//     x = c.Initialize(x);
+//     while(x){
+//         std::cout<<*x<<" ";
+//         x = c.Next();
+//     }
+//     std::cout<<std::endl;
+// }
