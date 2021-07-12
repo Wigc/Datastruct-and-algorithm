@@ -2,12 +2,17 @@
 #include<iostream>
 
 
-//内存不足
+/**
+ * 内存不足
+**/
 class NoMem{
     public:
         NoMem(){}
 };
 
+/**
+ * 超出范围
+**/
 class OutOfBounds{
     public:
         OutOfBounds(){}
