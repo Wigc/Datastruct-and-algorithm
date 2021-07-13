@@ -28,6 +28,11 @@ public:
     Array1D<T> operator-(const Array1D<T> &v) const;
     Array1D<T> operator*(const Array1D<T> &v) const;
     Array1D<T> &operator+=(const T &x);
+    void Resize(int sz){
+        delete [] element;
+        size = sz;
+        element = new T[size];
+    }
 };
 
 template <class T>
