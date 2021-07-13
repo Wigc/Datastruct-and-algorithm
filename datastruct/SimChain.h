@@ -22,10 +22,10 @@ public:
     SimChain<T> &Insert(int k, const T &x);
     void Output(std::ostream &out) const;
 
-
+    static SimSpace<T> S; //使用static，是为了使得所有类型为T的模拟链表共享相同的模拟空间
 private:
     int first;            //第一个节点索引
-    static SimSpace<T> S; //使用static，是为了使得所有类型为T的模拟链表共享相同的模拟空间
+    
 
 };
 
@@ -114,7 +114,7 @@ SimChain<T> &SimChain<T>::Delete(int k, T &x)
     }
 
     int current = first;
-    if (current == 1)
+    if (k == 1)
     {
         first = S.node[first].link; //删除
     }
@@ -169,6 +169,7 @@ SimChain<T> &SimChain<T>::Insert(int k, const T &x)
     if(k){
         //在p之后插入
         S.node[newnode].link = S.node[p].link;
+        S.node[p].link = newnode;
     }else{
         //作为首部插入
         S.node[newnode].link = first;
@@ -182,7 +183,7 @@ template<class T>
 void SimChain<T>::Output(std::ostream& out)const{
     int current = first;
     
-    while(first!= -1){
+    while(current != -1){
         out<<S.node[current].data<<" ";
         current = S.node[current].link;
     }

@@ -3,9 +3,19 @@
 #include "xcept.h"
 
 
+template<class T>
+class SimSpace;
 
+template<class T>
+class SimNode
+{
+public:
+//     friend SimSpace<T>;
 
-
+// private:
+    T data;
+    int link;
+};
 
 template <class T>
 class SimSpace
@@ -15,12 +25,14 @@ public:
     ~SimSpace() { delete[] node; }
     int Allocate();          //分配一个节点
     void Deallocate(int &i); //释放节点i
+
+    SimNode<T> *node; //节点数组
 private:
     int NumberOfNodes;
     // int first;
     int first1;
     int first2;
-    SimNode<T> *node; //节点数组
+    
 };
 
 template <class T>

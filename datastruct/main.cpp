@@ -2,13 +2,15 @@
 #include <iostream>
 #include <ostream>
 #include "IndirectList.h"
-#include "SimNode.h"
+
 #include "SimSpace.h"
 #include "SimChain.h"
 #include "xcept.h"
 using namespace std;
 
-template<>  SimSpace<int> SimChain<int>::S;
+template<class T>
+SimSpace<T>
+SimChain<T>::S;
 
 /* int main1(){
     try{
