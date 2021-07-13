@@ -28,6 +28,8 @@ public:
     void Erase();
     void Zero() { first = 0; }
     Chain<T> &Append(const T &x);
+    void BinSort(int range,int(*value)(T& x));//箱排序
+
 
 private:
     ChainNode<T> *first; //指向第一个节点的指针
@@ -285,6 +287,53 @@ Chain<T> &Chain<T>::Append(const T &x)
     }
 
     return *this;
+}
+
+/**
+ * @range: 
+ * @(*value)(T& x): 函数指针
+ */
+template<class T>
+void Chain<T>::BinSort(int range,int(*value)(T& x)){
+    //按分数排序
+    int b;//箱子索引号
+    ChainNode<T> **bottom,**top;
+    //箱子初始化
+    bottom = new ChainNode<T>*[range+1];
+    top = new ChainNode<T>*[range+1];
+    for(b = 0;b<=range;b++){
+        bottom[b] = 0;
+    }
+    //把节点分配到各个箱子中
+    for(;first;first = first->link){
+        //添加到箱子中
+        b = value(first->data);
+        if(bottom[b]){
+            top[b]->link = first;
+            top[b] = first;
+        }else{
+            bottom[b] = top[b] = first;
+        }
+    }
+
+    //收集各箱子中的元素，产生一个排序表
+    ChainNode<T>* y = 0;
+    for(b=0;b<=range;b++){
+        if(bottom[b]){
+            //箱子非空
+            if(y){
+                //不是第一个非空箱子
+                y->link = bottom[b];
+            }else{
+                //第一个非空箱子
+                first = bottom[b];
+            }
+            y = top[b];
+        }
+    }
+    if(y) y->link = 0;
+    delete [] bottom;
+    delete [] top;
 }
 
 // int main(){
