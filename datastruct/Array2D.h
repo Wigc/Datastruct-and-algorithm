@@ -28,13 +28,13 @@ public:
         return cols;
     }
     Array1D<T> &operator[](int i) const;
-    Array2D<T> &operator=(const Array2D<T> &m);
+    Array2D<T> &operator=(const Array2D<T>& m);
     Array2D<T> oprerator + () const;
-    Array2D<T> operator+(const Array2D<T> &m) const;
+    Array2D<T> operator+(const Array2D<T>& m) const;
     Array2D<T> oprerator - () const;
-    Array2D<T> operator-(const Array2D<T> &m) const;
-    Array2D<T> operator*(const Array2D<T> &m) const;
-    Array2D<T> opearator += (const T &x);
+    Array2D<T> operator-(const Array2D<T>& m) const;
+    Array2D<T> operator*(const Array2D<T>& m) const;
+    Array2D<T> opearator += (const T& x);
 };
 
 template <typename T>
@@ -44,23 +44,42 @@ Array2D<T>::Array2D(int r, int c)
     {
         throw BadInitializers();
     }
-    if（(!r || !c)&&(r||c)){
+    if((!r || !c)&&(r||c))
+    {
         throw BadInitializers();
     }
     rows = r;
     cols = c;
     row = new Array1D<T>[rows];
-    for(int i=0;i<r;i++){
+    for (int i = 0; i < r; i++)
+    {
         row[i].Resize(cols);
     }
 }
 
-Array2D(const Array2D<T> &m);
-Array1D<T> &operator[](int i) const;
-Array2D<T> &operator=(const Array2D<T> &m);
+template<typename T>
+Array2D<T>::Array2D(const Array2D<T>& m){
+    rows = m.rows;
+    cols = m.cols;
+    row = new Array1D<T>[rows];
+    for(int i = 0;i<rows;i++){
+        row[i]= m.row[i];
+    }
+
+}
+
+template<typename T>
+Array1D<T> &operator[](int i) const{
+    if (i < 0 || i >= this->rows)
+    {
+        throw OutOfBounds();
+    }
+    return row[i];
+}
+Array2D<T> &operator=(const Array2D<T>& m);
 Array2D<T> oprerator + () const;
-Array2D<T> operator+(const Array2D<T> &m) const;
+Array2D<T> operator+(const Array2D<T>& m) const;
 Array2D<T> oprerator - () const;
-Array2D<T> operator-(const Array2D<T> &m) const;
-Array2D<T> operator*(const Array2D<T> &m) const;
-Array2D<T> opearator += (const T &x);
+Array2D<T> operator-(const Array2D<T>& m) const;
+Array2D<T> operator*(const Array2D<T>& m) const;
+Array2D<T> opearator += (const T& x);
