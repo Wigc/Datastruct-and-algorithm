@@ -70,7 +70,7 @@ T &Array1D<T>::operator[](int i) const
 template <typename T>
 Array1D<T> &Array1D<T>::operator=(const Array1D<T> &v)
 {
-    if (this != v)
+    if (this != &v)
     {
         //不是自我赋值
         this->size = v.size;
