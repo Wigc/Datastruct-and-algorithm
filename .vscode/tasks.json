@@ -3,7 +3,7 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++.exe 生成活动文件",
-            "command": "E:/DevelopmentKit/mingw64/bin/g++.exe",
+            "command": "D:\\DevolpmentKit\\mingw64\\bin\\g++.exe",
             "args": [
                 "-g",
                 "${file}",
@@ -11,7 +11,7 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
             "options": {
-                "cwd": "E:/DevelopmentKit/mingw64/bin"
+                "cwd": "${fileDirname}"
             },
             "problemMatcher": [
                 "$gcc"
