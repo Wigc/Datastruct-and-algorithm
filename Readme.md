@@ -10,7 +10,12 @@
  * Array1D --- Array1D.h
  * Array2D --- Array2D.h
  * Matrix --- Matrix.h
+### (2) Stack
  * Stack --- Stack.h
+### (3) Queue
+ * Queue --- queue.h
+ * Array Queue --- arrayQueue.h
+ * Linked Queue --- linkedQueue.h
 
 ## 2. Algorithm
 ### (1) Sort
