@@ -1,9 +1,5 @@
 {
     "files.associations": {
-        "iosfwd": "cpp",
-        "iterator": "cpp",
-        "xstring": "cpp",
-        "xutility": "cpp",
-        "xtr1common": "cpp"
+        "algorithm": "cpp"
     }
 }

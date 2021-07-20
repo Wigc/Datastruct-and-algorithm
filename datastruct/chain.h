@@ -1,75 +1,72 @@
 #pragma once
 #include <iostream>
-#include "xcept.h"
+
+#include "LinearList.h"
+#include "chainNode.h"
+#include "CustomException.h"
+
+
 
 template <class T>
-class ChainNode
-{
-    friend Chain<T>;
-
-private:
-    T data;
-    ChainNode<T> *link;
-};
-
-template <class T>
-class Chain
+class Chain : public LinearList<T>
 {
 public:
-    Chain() { first = 0; }
+    Chain(int initialCapacity = 10);
+    Chain(const Chain<T>& theList);
     ~Chain();
-    bool IsEmpty() const { return first == 0; }
-    int Length() const;
-    bool Find(int k, T &x) const;
-    int Search(const T &x) const;
-    Chain<T> &Delete(int k, T &x);
-    Chain<T> &Insert(int k, const T &x);
-    void Output(std::ostream &out) const;
-    void Erase();
-    void Zero() { first = 0; }
-    Chain<T> &Append(const T &x);
-    void BinSort(int range,int(*value)(T& x));//箱排序
+
+    bool empty() const { return this->listSize == 0; }
+    int size() const {return this->listSize;}
+    T& get(int theIndex) const = 0;                     //返回索引为theIndex的元素
+    int indexOf(const T &theElement) const ;         //返回元素theElement第一次出现的索引
+    void erase(int theIndex) ;                       //删除索引为theIndex的元素
+    void insert(int theIndex, const T &theElement) ; //把theElement插入线性表中索引为theIndex的位置上
+    void output(std::ostream &out) const ;           //把线性表插入输出流out
 
 
-private:
-    ChainNode<T> *first; //指向第一个节点的指针
-    ChainNode<T> *last;
+protected:
+    void checkIndex(int theIndex) const; //若索引theIndex无效，则抛出异常
+    ChainNode<T>* firstNode; //指向第一个节点的指针
+    int listSize;//线性表元素个数
 };
 
-template <class T>
-class Chainiterator
-{
-public:
-    T *Initialize(const Chain<T> &c)
+template<typename T>
+Chain<T>::Chain(int initialCapacity){
+    if (initialCapacity < 1)
     {
-        location = c.first;
-        if (location)
-        {
-            return &location->data
-        }
-        return 0;
+        std::ostringstream s;
+        s << "Initial capacity = " << initialCapacity << " Must be > 0";
+        throw illegalParameterValue(s.str())
     }
 
-    T *Next()
-    {
-        if (!location)
-        {
-            return 0;
-        }
+    firstNode = NULL;
+    listSize = 0;
+}
 
-        location = location->link;
+template<typename T>
+Chain<T>::Chain(const Chain<T>& theList){
+    this->listSize = theList.listSize;
 
-        if (location)
-        {
-            return &location->data
-        }
-
-        return 0;
+    if(this->listSize == 0){
+        this->firstNode = NULL;
+        return;
     }
 
-private:
-    ChainNode<T> *location;
-};
+    ChainNode<T>* sourceNode = theList.firstNode;//要复制的链表节点
+
+    this->firstNode = new ChainNode<T>(sourceNode->element);//复制链表首元素
+    sourceNode = sourceNode->next;
+    ChainNode<T>* targetNode = this->firstNode;//当前链表*this的最后一个节点
+
+    while(sourceNode != NULL){
+        //复制剩余元素
+        targetNode->next = new ChainNode<T>(sourceNode->element);
+        targetNode = targetNode->next;
+        sourceNode = sourceNode->next;
+    }
+    targetNode->next = NULL;//链表结束
+}
+
 
 template <class T>
 Chain<T>::~Chain()
