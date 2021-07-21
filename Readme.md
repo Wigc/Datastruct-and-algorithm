@@ -5,8 +5,7 @@
  * ArrayList --- arrayList.h
  * VectorList --- vectorList.h
  * Chain --- chain.h
- * IndirectList --- IndirectList.h
- * Simulated List --- SimChain.h
+ * Extended Chain --- extendChain.h
  * Array1D --- Array1D.h
  * Array2D --- Array2D.h
  * Matrix --- Matrix.h

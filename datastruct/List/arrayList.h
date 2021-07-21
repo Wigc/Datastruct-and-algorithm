@@ -6,7 +6,7 @@
 
 #include "LinearList.h"
 #include "changeLength1D.h"
-#include "CustomException.h"
+#include "../CustomException.h""
 
 template <class T>
 class arrayList : public LinearList<T>
