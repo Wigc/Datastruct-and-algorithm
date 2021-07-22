@@ -82,6 +82,8 @@ public:
         return iterator(NULL);
     }
 
+    void binSort(int range);
+
 
 protected:
     void checkIndex(int theIndex) const; //若索引theIndex无效，则抛出异常
@@ -253,6 +255,50 @@ void Chain<T>::insert(int theIndex, const T & theElement)
     }
 
     this->listSize++;    
+}
+
+template<typename T>
+void Chain<T>::binSort(int range){
+    //对链表的节点进行排序
+    //创建并初始化箱子
+    ChainNode<T> **bottom,**top;
+    bottom = new ChainNode<T>* [range+1];
+    top = new ChainNode<T>* [range+1];
+
+    for(;this->firstNode != NULL;this->firstNode = this->firstNode->next){
+        //把首节点firstnode加入到箱子中
+        int theBin = this->firstNode->element;//元素类型转换为int
+        if(bottom[theBin] == NULL){//箱子为空
+            bottom[theBin] = top[theBin] = this->firstNode;
+        }else{
+            //箱子不为空
+            top[theBin]->next = this->firstNode;
+            top[theBin] = this->firstNode;
+        }
+    }
+
+    //把箱子中的节点收集到有序链表中
+    ChainNode<T>* y = NULL;
+    for(int theBin = 0;theBin<range;theBin++){
+        if(bottom[theBin] != NULL){
+            //箱子不空
+            if(y == NULL){
+                //第一个非空箱子
+                this->firstNode = bottom[theBin];
+            }else{
+                //不是第一个非空箱子
+                y->next = bottom[theBin];
+            }
+            y = top[theBin];
+        }
+    }
+
+    if(y != NULL){
+        y->next = NULL;
+    }
+
+    delete [] bottom;
+    delete [] top;
 }
 
 

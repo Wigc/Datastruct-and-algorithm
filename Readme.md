@@ -6,12 +6,14 @@
  * VectorList --- vectorList.h
  * Chain --- chain.h
  * Extended Chain --- extendChain.h
+ * CircularListWithHeader -- circularListWithHeader.h
+### (4) Array
  * Array1D --- Array1D.h
  * Array2D --- Array2D.h
  * Matrix --- Matrix.h
-### (2) Stack
+### (3) Stack
  * Stack --- Stack.h
-### (3) Queue
+### (4) Queue
  * Queue --- queue.h
  * Array Queue --- arrayQueue.h
  * Linked Queue --- linkedQueue.h
