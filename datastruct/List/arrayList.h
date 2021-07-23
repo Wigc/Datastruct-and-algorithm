@@ -5,8 +5,8 @@
 #include <iterator>
 
 #include "LinearList.h"
-#include "changeLength1D.h"
-#include "../CustomException.h""
+#include "../changeLength1D.h"
+#include "../CustomException.h"
 
 template <class T>
 class arrayList : public LinearList<T>
@@ -114,7 +114,7 @@ arrayList<T>::arrayList(int initialCapacity)
     {
         std::ostringstream s;
         s << "Initial capacity = " << initialCapacity << " Must be > 0";
-        throw illegalParameterValue(s.str())
+        throw illegalParameterValue(s.str());
     }
 
     this->arrayLength = initialCapacity;
@@ -149,7 +149,7 @@ T &arrayList<T>::get(int theIndex) const
     //返回索引为theIndex的元素，若不存在，则抛出异常
     //如果不存在第k个元素则返回false，否则返回true
     this->checkIndex(theIndex);
-    return this->element[theIndex]
+    return this->element[theIndex];
 }
 
 template <class T>
@@ -219,7 +219,7 @@ template <class T>
 void arrayList<T>::output(std::ostream &out) const
 {
     //把表送入输出流
-    std::copy(this->element, this->element + this->listSize, std::ostream_iterator<T>(std::cout, " "))
+    std::copy(this->element, this->element + this->listSize, std::ostream_iterator<T>(std::cout, " "));
 }
 
 //重载<<

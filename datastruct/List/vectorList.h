@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "LinearList.h"
-#include "changeLength1D.h"
+#include "../changeLength1D.h"
 #include "CustomException.h"
 
 
