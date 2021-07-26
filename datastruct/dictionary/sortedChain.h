@@ -50,12 +50,43 @@ sortedChain<K,E>::~sortedChain(){
 }
 
 template<typename K,typename E>
-std::pair<const K,E>* sortedChain<K,E>::find(const K&) const{
+std::pair<const K,E>* sortedChain<K,E>::find(const K& theKey) const{
+    pairNode<K,E>* currentNode = this->firstNode;
+
+    while (currentNode != NULL && currentNode->element.first != theKey)
+    {
+        currentNode = currentNode->next;
+    }
+
+    if(currentNode != NULL && currentNode->element.first == theKey){
+        return currentNode->element;
+    }
+
+    return NULL;
     
 }
 
 template<typename K,typename E>
-void erase(const K&);
+void sortedChain<K,E>::erase(const K& theKey){
+    pairNode<K,E>* p = this->firstNode;
+    pairNode<K,E>* tp = NULL;//tp 跟踪p
+
+    while(p != NULL && p->element.first != theKey){
+        tp = p;
+        p = p->next;
+    }
+
+    if(p != NULL && p->element.first == theKey){
+        if(tp == NULL){
+            this->firstNode = p->next;//p是首节点
+        }else{
+            tp->next = p->next;
+        }
+
+        delete p;
+        this->dictionarySize--;
+    }
+}
 
 template<typename K,typename E>
 void insert(const std::pair<const K,E>&);
