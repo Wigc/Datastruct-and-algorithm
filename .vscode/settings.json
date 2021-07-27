@@ -1,6 +1,22 @@
 {
     "files.associations": {
+        "memory": "cpp",
+        "system_error": "cpp",
+        "type_traits": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp",
+        "hash_map": "cpp",
+        "unordered_map": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "xhash": "cpp",
+        "string": "cpp",
+        "xmemory": "cpp",
+        "algorithm": "cpp",
+        "cmath": "cpp",
         "tuple": "cpp",
-        "utility": "cpp"
+        "xlocale": "cpp",
+        "xlocnum": "cpp",
+        "xutility": "cpp"
     }
 }

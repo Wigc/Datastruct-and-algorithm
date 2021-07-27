@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <math.h>
 #include "dictionary.h"
 #include "../CustomException.h"
 #include "skipNode.h"
@@ -27,9 +28,9 @@ class skipList : public Dictionary<K,E>{
 
         pair<const K,E>* find(const K& theKey) const;
 
-        void erase(const T& theKey);
+        void erase(const K& theKey);
         void insert(const pair<const K,E>& thePair);
-        void output(ostream& out);
+        void output(ostream& out) const;
 
     protected:
         float cutOff; //用来确定层数
@@ -46,7 +47,7 @@ class skipList : public Dictionary<K,E>{
 };
 
 template<typename K,typename E>
-skipList<K,E>::skipList(K largeKey,int maxPairs = 1000,float prob = 0.5){
+skipList<K,E>::skipList(K largeKey,int maxPairs ,float prob ){
     //构造函数，关键字小于largeKey且数对个数size最多为maxPairs。0<prob<1
     this->cutOff = prob * RAND_MAX;
     this->maxLevel = (int) ceil(logf((float) maxPairs) / logf(1/prob)) - 1;
@@ -124,7 +125,7 @@ skipNode<K,E>* skipList<K,E>::search(const K& theKey) const{
     skipNode<K,E>* beforeNode = this->headNode;
     for(int i=levels;i>=0;i--){
         while(beforeNode->next[i]->element.first <theKey){
-            beforeNode = beforeNode->next;
+            beforeNode = beforeNode->next[i];
         }
         last[i] = beforeNode;   //最后一级链表i的节点
     }
@@ -133,7 +134,7 @@ skipNode<K,E>* skipList<K,E>::search(const K& theKey) const{
 }
 
 template<typename K,typename E>
-void skipList<K,E>::erase(const T& theKey){
+void skipList<K,E>::erase(const K& theKey){
     //删除关键字等于theKey的数对
     if(theKey >= this->tailKey){ //关键字太大
         return;
@@ -198,7 +199,7 @@ void skipList<K,E>::insert(const pair<const K,E>& thePair){
 }
 
 template<typename K,typename E>
-void skipList<K,E>::output(ostream& out){
+void skipList<K,E>::output(ostream& out) const {
     for(skipNode<K,E>* currentNode = this->headNode->next[0];
                        currentNode != this->tailNode;
                        currentNode = currentNode->next[0]){

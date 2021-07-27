@@ -21,6 +21,12 @@
  * Queue --- queue.h
  * Array Queue --- arrayQueue.h
  * Linked Queue --- linkedQueue.h
+### (5) Dictionary
+ * Dictionary --- Dictionary.h
+ * Sorted Chain --- sortedChain.h
+ * Skip List --- skipList.h
+ * Hash table --- hahsTable.h
+ * Hash Chain --- hashChain.h
 
 ## 2. Algorithm
 ### (1) Sort
