@@ -1,9 +1,18 @@
+/*
+ * @Description: 
+ * @Version: 2.0
+ * @Autor: 
+ * @Date: 2021-07-19 16:14:18
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-29 16:49:31
+ */
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <algorithm>
 
-#include "CustomException.h"
+#include "../CustomException.h"
 #include "queue.h"
 
 template<typename T>
@@ -21,7 +30,7 @@ class arrayQueue : public Queue<T>{
             if(this->theFront == this->theBack){
                 throw queueEmpty();
             }
-            return this->element[this->theFront];
+            return this->element[(this->theFront + 1)% this->arrayLength] ;
         }
         T& back(){
             if(this->theBack == this->theFront){
