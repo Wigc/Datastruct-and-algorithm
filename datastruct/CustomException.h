@@ -150,3 +150,19 @@ public:
 private:
     std::string message;
 };
+
+
+// empty tree
+class emptyTree
+{
+public:
+    emptyTree(std::string theMessage =
+                        "The tree is empty")
+    {
+        message = theMessage;
+    }
+    void outputMessage() { std::cout << message << std::endl; }
+
+private:
+    std::string message;
+};
