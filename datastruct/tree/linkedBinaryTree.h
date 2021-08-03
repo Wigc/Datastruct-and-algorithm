@@ -4,7 +4,7 @@
  * @Autor: 
  * @Date: 2021-07-29 15:58:17
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-03 21:01:16
+ * @LastEditTime: 2021-08-03 21:16:47
  */
 
 #ifndef linkedBinaryTree_
@@ -30,7 +30,7 @@ protected:
     static void preOrder(binaryTreeNode<E>* t);
     static void inOrder(binaryTreeNode<E>* t);
     static void postOrder(binaryTreeNode<E>* t);
-    static void void countNodes(binaryTreeNode<E>* t){
+    static void countNodes(binaryTreeNode<E>* t){
         visit = addToCount;
         count = 0;
         preOrder(t);
@@ -249,7 +249,20 @@ void linkedBinaryTree<E>::levelOrder(void(*theVisit)(binaryTreeNode<E>* )){
 
 }
 
+//返回节点的高度
+template<class E>
+int linkedBinaryTree<E>::height(binaryTreeNode<E>* t){
+    if(NULL == t){
+        return 0;
+    }
 
-
+    int hl = height(t->leftChild);//左高度
+    int hr = height(t->rightChild);//右高度
+    if(hl > hr){
+        return ++hl;
+    }else{
+        return ++hr;
+    }
+}
 
 #endif
