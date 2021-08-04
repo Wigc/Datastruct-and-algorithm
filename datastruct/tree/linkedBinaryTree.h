@@ -4,7 +4,7 @@
  * @Autor: 
  * @Date: 2021-07-29 15:58:17
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2021-08-03 21:16:47
+ * @LastEditTime: 2021-08-04 20:16:25
  */
 
 #ifndef linkedBinaryTree_
@@ -25,7 +25,8 @@ class linkedBinaryTree : public binaryTree<binaryTreeNode<E>>
 protected:
     binaryTreeNode<E>* root;//指向根节点指针
     int treeSize;//树的节点个数
-    static void (*visit)(binaryTreeNode<E>* );//访问函数
+    typedef void (*visitfun)(binaryTreeNode<E>*);//访问函数
+    static void (*visit)(binaryTreeNode<E>*);
     static int count;//统计子树的节点
     static void preOrder(binaryTreeNode<E>* t);
     static void inOrder(binaryTreeNode<E>* t);
@@ -45,7 +46,7 @@ protected:
     }
 
     static void addToCount(binaryTreeNode<E>* t){
-        count++；
+        count++;
     }
 
     static int height(binaryTreeNode<E>* t);
@@ -77,12 +78,12 @@ public:
         preOrder(this->root);
     }
 
-    void inOrder(void(*theVisit)(binaryTreeNode<E>&)){
+    void inOrder(void(*theVisit)(binaryTreeNode<E>*)){
         visit = theVisit;
         inOrder(this->root);
     }
 
-    void postOrder(void(*theVisit)(binaryTreeNode<E>&)){
+    void postOrder(void(*theVisit)(binaryTreeNode<E>*)){
         visit = theVisit;
         postOrder(this->root);
     }
@@ -104,7 +105,7 @@ public:
         cout<<endl;
     }
 
-    void levelOrder(){
+    void levelOrderOutput(){
         levelOrder(output);
         cout<<endl;
     }
@@ -123,6 +124,8 @@ public:
 // the following should work but gives an internal compiler error
 // template <class E> void (*linkedBinaryTree<E>::visit)(binaryTreeNode<E>*);
 // so the explicit declarations that follow are used for our purpose instead
+template<class E>
+typename linkedBinaryTree<E>::visitfun  linkedBinaryTree<E>::visit = nullptr; 
 /* void (*linkedBinaryTree<int>::visit)(binaryTreeNode<int>*);
 void (*linkedBinaryTree<booster>::visit)(binaryTreeNode<booster>*);
 void (*linkedBinaryTree<pair<int,int> >::visit)(binaryTreeNode<pair<int,int> >*);
